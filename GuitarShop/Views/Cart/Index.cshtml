@@ -1,0 +1,39 @@
+﻿@model List<Product>
+@{
+    ViewBag.Title = "Your Cart";
+    var qty = (Dictionary<int, int>)ViewBag.Quantities;
+    decimal total = Model.Sum(p => p.DiscountPrice * qty[p.ProductID]);
+}
+
+<h1>Your Cart</h1>
+
+@if (Model.Count == 0)
+{
+    <p>Your cart is empty.</p>
+}
+else
+{
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr><th>Product</th><th>Price</th><th>Qty</th><th>Subtotal</th><th></th></tr>
+        </thead>
+        <tbody>
+            @foreach (var p in Model)
+            {
+                <tr>
+                    <td>@p.Name</td>
+                    <td>@p.DiscountPrice.ToString("C")</td>
+                    <td>@qty[p.ProductID]</td>
+                    <td>@((p.DiscountPrice * qty[p.ProductID]).ToString("C"))</td>
+                    <td><a asp-action="Remove" asp-route-id="@p.ProductID">Remove</a></td>
+                </tr>
+            }
+        </tbody>
+        <tfoot>
+            <tr><td colspan="3"><strong>Total</strong></td><td colspan="2"><strong>@total.ToString("C")</strong></td></tr>
+        </tfoot>
+    </table>
+    <a asp-action="Clear" class="btn btn-secondary">Clear Cart</a>
+}
+
+<a asp-controller="Product" asp-action="List" class="btn btn-primary">Continue Shopping</a>

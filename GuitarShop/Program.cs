@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace GuitarShop
 {
@@ -13,6 +14,11 @@ namespace GuitarShop
     {
         public static void Main(string[] args)
         {
+            var culture = new CultureInfo("en-ZA");
+            CultureInfo.DefaultThreadCurrentCulture = culture;
+            CultureInfo.DefaultThreadCurrentUICulture = culture;
+            CultureInfo.CurrentCulture = culture;
+            CultureInfo.CurrentUICulture = culture;
             CreateHostBuilder(args).Build().Run();
         }
 

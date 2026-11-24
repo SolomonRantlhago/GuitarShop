@@ -29,6 +29,9 @@ namespace GuitarShop
                 options => options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
 
+            services.AddDistributedMemoryCache();
+            services.AddSession();
+
         }
 
 
@@ -41,6 +44,7 @@ namespace GuitarShop
 
             app.UseStaticFiles();
             app.UseRouting();
+            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {
